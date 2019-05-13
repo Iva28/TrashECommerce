@@ -34,10 +34,10 @@
 
     <div class="products-section my-orders container">
         <div class="sidebar">
-
             <ul>
               <li><a href="{{ route('users.edit') }}">My Profile</a></li>
-              <li class="active"><a href="{{ route('orders.index') }}">My Orders</a></li>
+              <li><a href="{{ route('orders.index') }}">My Orders</a></li>
+              <li class="active"><a href="{{ route('trash.index') }}">My Trash</a></li>
             </ul>
         </div> <!-- end sidebar -->
         <div class="my-profile">
@@ -46,11 +46,16 @@
             </div>
 
             <div>
-                @foreach ($trashes as $trash)
-                    <div>City: {{$trash->city}}. Coins: {{$trash->coins}}</div>
-                @endforeach
-            </div>
+                Total coins: {{$totalCoins}}
+                <br />
+                <br />
 
+                <ul>
+                    @foreach ($trashes as $trash)
+                        <li>Address: {{$trash->city}}, {{$trash->address}}. Date: {{ $trash->created_at->format('d/m/Y H:i')}}. Coins: {{$trash->coins}} </li>
+                    @endforeach
+                </ul>
+            </div>
             <div class="spacer"></div>
         </div>
     </div>

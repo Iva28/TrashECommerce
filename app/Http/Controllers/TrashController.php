@@ -10,7 +10,14 @@ class TrashController extends Controller
 {
     public function index()
     {
+        $totalCoins = 0;
         $trashes = Auth::user()->trashs;
-        return view('my-trash')->with('trashes', $trashes);
+        foreach ($trashes as $trash) {
+           $totalCoins += $trash->coins;
+        }
+        return view('my-trash')->with([
+            'trashes'=> $trashes,
+            'totalCoins' => $totalCoins
+        ]);
     }
 }

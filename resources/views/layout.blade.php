@@ -27,7 +27,10 @@
 <body class="@yield('body-class', '')">
     @include('partials.nav')
 
-    @yield('content')
+    <div class="content">
+        
+        @yield('content')
+    </div>
 
     @include('partials.footer')
 
