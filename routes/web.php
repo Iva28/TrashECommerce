@@ -6,7 +6,6 @@ Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
 
 Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::get('/rating', 'RatingController@index')->name('rating.index');
 
 Route::post('/cart/{product}', 'CartController@store')->name('cart.store');
 Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
@@ -35,7 +34,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{city?}', 'HomeController@index')->name('home');
 
 Route::get('/search', 'ShopController@search')->name('search');
 
@@ -49,5 +48,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/my-orders', 'OrdersController@index')->name('orders.index');
     Route::get('/my-orders/{order}', 'OrdersController@show')->name('orders.show');
-
 });
+
+
+Route::get('/rating/{city?}', 'RatingController@index')->name('rating.index');
+Route::post('/rating', 'RatingController@getUserbyCity')->name('rating.city');
