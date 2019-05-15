@@ -38,20 +38,12 @@
             <h2>Total trashes: {{$totalTrashes}}</h2>
             <h2>User of the month: {{$userMonth->name}}</h2>
             <div>
-                {{-- <form method="POST">
-                    <select onchange="this.form.submit();" name="city">
-                        <option value="">Select city</option>
-                        <option value="Baku">Baku</option>
-                        <option value="Quba">Quba</option>
-                    </select>
-                </form> --}}
-
                 {!! Form::open(array('method' => 'post','route' => 'rating.city' )) !!}
-                    {!! Form::select('city', $cities, ['class' => 'form-control', 'onchange' => 'submit()']) !!}
+                    {!! Form::select('city', $cities, $city, ['class' => 'form-control', 'onchange' => 'submit()']) !!}
                 {!! Form::close() !!} 
             </div>
             @if(!empty($userCity))
-                <h2>User: {{$userCity}}</h2>
+                <h2>User: {{$userCity->name}}</h2>
             @endif
 
             

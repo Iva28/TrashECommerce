@@ -29,10 +29,12 @@
 
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required>
 
-                <input id="password" type="password" class="form-control" name="password" placeholder="Password" placeholder="Password" required>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
 
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password"
                     required>
+
+                <input id="phone" type="text" class="form-control" name="phone" placeholder="994 00 123 45 67" required>
 
                 <div class="login-container">
                     <button type="submit" class="auth-button">Create Account</button>

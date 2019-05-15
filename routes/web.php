@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home/{city?}', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/search', 'ShopController@search')->name('search');
 
@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-trash', 'TrashController@index')->name('trash.index');
 
     Route::patch('/my-profile', 'UsersController@update')->name('users.update');
+    Route::post('/my-profile', 'UsersController@uploadImage')->name('users.upload-image');   
 
     Route::get('/my-orders', 'OrdersController@index')->name('orders.index');
     Route::get('/my-orders/{order}', 'OrdersController@show')->name('orders.show');

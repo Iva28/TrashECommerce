@@ -26,4 +26,15 @@
           background: lighten($text-color, 10%);
       }
   }
+
+  input[type="file"] {
+      border: none;
+  }
+
+  .psw {
+    color: gray;
+    font-size: smaller;
+    margin-left: 15px;
+  }
+  
 }

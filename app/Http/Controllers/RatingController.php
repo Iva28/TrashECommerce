@@ -7,13 +7,20 @@ use App\User;
 use App\Trash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
+use Collective\Html\FormFacade;
+use Collective\Html\FormBuilder;
 
 class RatingController extends Controller
 {
-    public function index(User $userCity = null)
+
+    public function index() {
+        return $this->_getIndexPage();
+    }
+    
+    private function _getIndexPage(User $userCity = null, string $city = null)
     {
-       $arr = array();
-       $userMonth = null;
+        $arr = array();
+        $userMonth = null;
 
        $currentMonth = date('m');
 
@@ -35,6 +42,7 @@ class RatingController extends Controller
             'totalTrashes'=> $totalTrashes,
             'userMonth' => $userMonth,
             'cities' => $cities->combine($cities)->toArray(),
+            'city' => $city,
             'userCity' => $userCity
         ]);
     }
@@ -52,7 +60,6 @@ class RatingController extends Controller
             $max = array_keys($arr, max($arr));
             $userCity = User::find($max[0]);
          }
-         return $this->index($userCity);
-        // return redirect()->route('rating.index')->with($userCity);
+         return $this->_getIndexPage($userCity, $city);
     }
 }

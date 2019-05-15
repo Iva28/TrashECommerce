@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Collective\Html\FormBuilder;
 
 class UsersController extends Controller
 {
@@ -70,6 +71,8 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
             'password' => 'sometimes|nullable|string|min:6|confirmed',
+            'phone' => 'required|string'
+            //'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $user = auth()->user();
@@ -86,6 +89,21 @@ class UsersController extends Controller
 
         return back()->with('success_message', 'Profile (and password) updated successfully!');
     }
+
+
+    public function uploadImage(Request $request) {
+        $fileToUpload = $request->input('fileToUpload');
+       /*  $request->validate([
+            'fileToUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]); */
+        dd(request()->files);
+        $fileName = 'file_'.time().'.'.request()->file('fileToUpload')->getClientOriginalExtension();
+        $request->image->storeAs('public/uploaded', $fileName);
+   }
+
+    
+
+
 
     /**
      * Remove the specified resource from storage.

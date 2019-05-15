@@ -43,6 +43,18 @@
         <div class="my-profile">
             <div class="products-header">
                 <h1 class="stylish-heading">My Profile</h1>
+                <div style="width: 350px;">
+                    <img src="storage/{{$user->avatar}}">
+                    {!! Form::open(['method' => 'post', 'onsubmit' => 'send']) !!}
+                    {!! Form::file('fileToUpload',  ['class' => 'custom-file-input', "accept" => ".jpeg,.png,.jpg,.gif,.svg", 'onchange' => 'submit()']) !!}
+                    {!! Form::close() !!}
+                    <script>
+                        function send() {
+                            $.ajax()
+                            event.preventDefault();
+                        }
+                    </script>
+                </div>
             </div>
 
             <div>
@@ -52,15 +64,19 @@
                     <div class="form-control">
                         <input id="name" type="text" name="name" value="{{ old('name', $user->name) }}" placeholder="Name" required>
                     </div>
+
                     <div class="form-control">
                         <input id="email" type="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Email" required>
                     </div>
                     <div class="form-control">
                         <input id="password" type="password" name="password" placeholder="Password">
-                        <div>Leave password blank to keep current password</div>
+                        <div class="psw">Leave password blank to keep current password</div>
                     </div>
                     <div class="form-control">
                         <input id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm Password">
+                    </div>
+                    <div class="form-control">
+                        <input id="phone" type="text" name="phone" value="{{ old('phone', $user->phone) }}" placeholder="994 00 123 45 67" required>
                     </div>
                     <div>
                         <button type="submit" class="my-profile-button">Update Profile</button>

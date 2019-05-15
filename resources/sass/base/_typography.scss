@@ -18,6 +18,8 @@ h1 {
 h1.stylish-heading {
     margin-bottom: 60px;
     position: relative;
+    margin-top: 40px;
+    padding-top: 20px;
 
     &:before, &:after {
       position: absolute;

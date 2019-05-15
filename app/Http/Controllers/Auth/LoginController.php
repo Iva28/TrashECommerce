@@ -71,4 +71,19 @@ class LoginController extends Controller
     {
         return str_replace(url('/'), '', session()->get('previousUrl', '/'));
     }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        if(is_numeric($request->get('email'))){
+            return ['phone'=>$request->get('email'),'password'=>$request->get('password')];
+        }
+        return $request->only($this->username(), 'password');
+    }
 }
