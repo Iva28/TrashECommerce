@@ -60,4 +60,11 @@
         </div>
     </div> <!-- end auth-pages -->
 </div>
+<script>
+    var element = document.getElementById('phone');
+    var maskOptions = {
+      mask: '+994 00 000 00 00'
+    };
+    var mask = IMask(element, maskOptions);
+</script>
 @endsection

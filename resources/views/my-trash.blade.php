@@ -52,7 +52,7 @@
 
                 <ul>
                     @foreach ($trashes as $trash)
-                        <li>Address: {{$trash->city}}, {{$trash->address}}. Date: {{ $trash->created_at->format('d/m/Y H:i')}}. Coins: {{$trash->coins}} </li>
+                        <li><a href="{{ route('trash.details', $trash->id) }}">Date: {{ $trash->created_at->format('d/m/Y H:i')}}. Coins: {{$trash->coins}}</a></li>
                     @endforeach
                 </ul>
             </div>

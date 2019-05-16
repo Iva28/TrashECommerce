@@ -7,7 +7,6 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <title>Laravel Ecommerce | @yield('title', '')</title>
 
         <link href="/img/favicon.ico" rel="SHORTCUT ICON" />
@@ -19,6 +18,9 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+        
+        <script src="https://unpkg.com/imask"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
         @yield('extra-css')
     </head>

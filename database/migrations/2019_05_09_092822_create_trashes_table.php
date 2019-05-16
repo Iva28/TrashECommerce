@@ -17,7 +17,8 @@ class CreateTrashesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->string('city');
-            $table->string('address');
+            $table->float('lng', 10, 6);
+            $table->float('lat', 10, 6);
             $table->unsignedInteger('coins')->default(0);
             $table->timestamps();
 

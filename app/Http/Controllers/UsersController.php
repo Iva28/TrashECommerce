@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use Collective\Html\FormBuilder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Http\Request;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -71,39 +76,31 @@ class UsersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
             'password' => 'sometimes|nullable|string|min:6|confirmed',
-            'phone' => 'required|string'
+            'phone' => 'required|string',
+            'avatar' => 'required|string'
             //'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $user = auth()->user();
         $input = $request->except('password', 'password_confirmation');
-
-        if (! $request->filled('password')) {
-            $user->fill($input)->save();
-
-            return back()->with('success_message', 'Profile updated successfully!');
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
         }
-
-        $user->password = bcrypt($request->password);
-        $user->fill($input)->save();
-
-        return back()->with('success_message', 'Profile (and password) updated successfully!');
+        $user->update($input);
+        return back()->with('success_message', 'Profile updated successfully!');
     }
-
-
-    public function uploadImage(Request $request) {
-        $fileToUpload = $request->input('fileToUpload');
-       /*  $request->validate([
-            'fileToUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]); */
-        dd(request()->files);
-        $fileName = 'file_'.time().'.'.request()->file('fileToUpload')->getClientOriginalExtension();
-        $request->image->storeAs('public/uploaded', $fileName);
-   }
-
     
-
-
+    public function uploadImage(Request $request) {
+        $request->validate([
+            'fileToUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        // dd($request->files->all());
+        $file = $request->file('fileToUpload');
+        $fileName = 'file_'.time().'.'.$file->getClientOriginalExtension();
+        $file->storeAs('public/uploaded', $fileName);
+        //return "storage/uploaded/$fileName";
+        return "uploaded/$fileName";
+   }
 
     /**
      * Remove the specified resource from storage.

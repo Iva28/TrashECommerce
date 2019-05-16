@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class EcommerceInstall extends Command
 {
@@ -49,6 +50,12 @@ class EcommerceInstall extends Command
 
     protected function proceed()
     {
+        config(['database.connections.mysql.database' => null]);
+        DB::statement('DROP DATABASE IF EXISTS ecommercedb');
+        DB::statement('CREATE DATABASE IF NOT EXISTS ecommercedb CHARACTER SET utf8 COLLATE utf8_unicode_ci');
+        config(['database.connections.mysql.database' => 'ecommercedb']);
+        DB::disconnect('mysql'); 
+
         File::deleteDirectory(public_path('storage/products'));
         File::deleteDirectory(public_path('storage/settings'));
         File::deleteDirectory(public_path('storage/pages'));
@@ -131,6 +138,11 @@ class EcommerceInstall extends Command
 
         $this->call('db:seed', [
             '--class' => 'SettingsTableSeederCustom',
+            '--force' => true,
+        ]);
+
+        $this->call('db:seed', [
+            '--class' => 'TrashTableSeeder',
             '--force' => true,
         ]);
 

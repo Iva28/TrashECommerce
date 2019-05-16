@@ -43,19 +43,38 @@
         <div class="my-profile">
             <div class="products-header">
                 <h1 class="stylish-heading">My Profile</h1>
+            </div>
                 <div style="width: 350px;">
-                    <img src="storage/{{$user->avatar}}">
-                    {!! Form::open(['method' => 'post', 'onsubmit' => 'send']) !!}
-                    {!! Form::file('fileToUpload',  ['class' => 'custom-file-input', "accept" => ".jpeg,.png,.jpg,.gif,.svg", 'onchange' => 'submit()']) !!}
+                    <img id="user-avatar" src="storage/{{$user->avatar}}">
+                    {!! Form::open(['method' => 'post', 'files' => true, 'id' => 'upload_form']) !!}
+                    {!! Form::file('fileToUpload',  ['class' => 'custom-file-input', "accept" => ".jpeg,.png,.jpg,.gif,.svg", 'onchange' => '$(this).closest("form").submit()']) !!}
                     {!! Form::close() !!}
                     <script>
-                        function send() {
-                            $.ajax()
+                        //function send() {
+                        $('#upload_form').submit(function(event) {
                             event.preventDefault();
-                        }
+                            var data = new FormData($(this)[0]);
+                            data.append('fileToUpload', $('#upload_form')[0].children[1].files[0]);
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ route('users.upload-image') }}',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')                                    
+                                },
+                                enctype: 'multipart/form-data',
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                mimeType: "multipart/form-data",
+                                success: function (response) {
+                                    // $( '#user-avatar' ).attr('src', response);
+                                    $( '#user-avatar' ).attr('src', "storage/".concat(response));
+                                    $('input[name="avatar"]').attr('value', response);
+                                }
+                            });
+                        });
                     </script>
                 </div>
-            </div>
 
             <div>
                 <form action="{{ route('users.update') }}" method="POST">
@@ -78,6 +97,7 @@
                     <div class="form-control">
                         <input id="phone" type="text" name="phone" value="{{ old('phone', $user->phone) }}" placeholder="994 00 123 45 67" required>
                     </div>
+                    <input type="hidden" id="avatar" name="avatar" value="{{ old('avatar', $user->avatar) }}" >
                     <div>
                         <button type="submit" class="my-profile-button">Update Profile</button>
                     </div>

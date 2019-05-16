@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $user_id
  * @property string $city
- * @property string $address
+ * @property float $lng
+ * @property float $lat
  * @property int $coins
  * @property \App\User $user
  */
@@ -20,7 +21,8 @@ class Trash extends Model
     protected $fillable = [
         'user_id',
         'city',
-        'address',
+        'lng',
+        'lat',
         'coins'
     ];
 }

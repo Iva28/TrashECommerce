@@ -43,6 +43,8 @@ Route::get('/search-algolia', 'ShopController@searchAlgolia')->name('search-algo
 Route::middleware('auth')->group(function () {
     Route::get('/my-profile', 'UsersController@edit')->name('users.edit');
     Route::get('/my-trash', 'TrashController@index')->name('trash.index');
+    Route::get('/my-trash/{trash}', 'TrashController@getTrashDetails')->name('trash.details');
+
 
     Route::patch('/my-profile', 'UsersController@update')->name('users.update');
     Route::post('/my-profile', 'UsersController@uploadImage')->name('users.upload-image');   
