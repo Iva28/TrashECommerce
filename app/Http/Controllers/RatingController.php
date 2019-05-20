@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use Collective\Html\FormFacade;
 use Collective\Html\FormBuilder;
+use Illuminate\Support\Facades\Log;
 
 class RatingController extends Controller
 {
@@ -17,13 +18,11 @@ class RatingController extends Controller
         return $this->_getIndexPage();
     }
     
-    private function _getIndexPage(User $userCity = null, string $city = null)
+    private function _getIndexPage()
     {
-        $arr = array();
-        $userMonth = null;
-
+       $arr = array();
+       $userMonth = null;
        $currentMonth = date('m');
-
        $trashes = DB::table('trashes')->whereRaw('MONTH(created_at) =?',[$currentMonth])->get();
        if ($trashes->isNotEmpty()) {
            $users = $trashes->pluck('user_id');
@@ -41,16 +40,13 @@ class RatingController extends Controller
         return view('rating')->with([
             'totalTrashes'=> $totalTrashes,
             'userMonth' => $userMonth,
-            'cities' => $cities->combine($cities)->toArray(),
-            'city' => $city,
-            'userCity' => $userCity
+            'cities' => $cities->combine($cities)->toArray()
         ]);
     }
 
     public function getUserbyCity(Request $request) {
-        $city = $request->input("city");
+        $city = $request->input('city');
         $trashes = DB::table('trashes')->whereRaw('city =?', [$city])->get();
-
         if ($trashes->isNotEmpty()) {
             $users = $trashes->pluck('user_id')->unique()->values();
             foreach ($users as $user) {
@@ -59,7 +55,7 @@ class RatingController extends Controller
             }
             $max = array_keys($arr, max($arr));
             $userCity = User::find($max[0]);
-         }
-         return $this->_getIndexPage($userCity, $city);
+        }
+        return $userCity;
     }
 }

@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ auth()->user()->name }}" required>
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}" required>
                         </div>
                     </div> <!-- end half-form -->
 

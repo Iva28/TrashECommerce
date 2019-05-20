@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-trash', 'TrashController@index')->name('trash.index');
     Route::get('/my-trash/{trash}', 'TrashController@getTrashDetails')->name('trash.details');
 
-
     Route::patch('/my-profile', 'UsersController@update')->name('users.update');
     Route::post('/my-profile', 'UsersController@uploadImage')->name('users.upload-image');   
 
@@ -54,5 +53,5 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/rating/{city?}', 'RatingController@index')->name('rating.index');
+Route::get('/rating', 'RatingController@index')->name('rating.index');
 Route::post('/rating', 'RatingController@getUserbyCity')->name('rating.city');
