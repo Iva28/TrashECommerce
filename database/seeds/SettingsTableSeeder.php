@@ -110,7 +110,7 @@ class SettingsTableSeeder extends Seeder
         if (!$setting->exists) {
             $setting->fill([
                 'display_name' => 'Admin Icon Image',
-                'value'        => '',
+                'value'        => 'users/default.png',
                 'details'      => '',
                 'type'         => 'image',
                 'order'        => 4,

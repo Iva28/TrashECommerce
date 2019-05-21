@@ -130,6 +130,24 @@ class MenuItemsTableSeeder extends Seeder
                 ])->save();
             }
 
+            // Reports
+            $menuItem = MenuItem::firstOrNew([
+                'menu_id' => $menu->id,
+                'title'   => 'Reports',
+                'url'     => '',
+                'route'   => 'voyager.reports.index',
+            ]);
+            if (!$menuItem->exists) {
+                $menuItem->fill([
+                    'target'     => '_self',
+                    'icon_class' => 'voyager-documentation',
+                    'color'      => null,
+                    'parent_id'  => null,
+                    'order'      => 15,
+                ])->save();
+            }
+            //
+
             $toolsMenuItem = MenuItem::firstOrNew([
                 'menu_id' => $menu->id,
                 'title'   => 'Tools',
@@ -192,7 +210,6 @@ class MenuItemsTableSeeder extends Seeder
                     'order'      => 12,
                 ])->save();
             }
-
             $menuItem = MenuItem::firstOrNew([
                 'menu_id' => $menu->id,
                 'title'   => 'Settings',

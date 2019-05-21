@@ -69,6 +69,7 @@ return [
         'public_url'             => 'Public URL',
         'read'                   => 'Read',
         'rename'                 => 'Rename',
+        'reports'                => 'Reports',
         'required'               => 'Required',
         'return_to_list'         => 'Return to List',
         'route'                  => 'Route',
