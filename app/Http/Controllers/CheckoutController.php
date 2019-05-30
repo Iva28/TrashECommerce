@@ -43,12 +43,16 @@ class CheckoutController extends Controller
             $paypalToken = null;
         }
 
-        return view('checkout2')->with([
+       /*  return view('checkout2')->with([
             'paypalToken' => $paypalToken,
             'discount' => getNumbers()->get('discount'),
             'newSubtotal' => getNumbers()->get('newSubtotal'),
             'newTax' => getNumbers()->get('newTax'),
             'newTotal' => getNumbers()->get('newTotal'),
+        ]); */
+
+        return view('checkout2')->with([
+           
         ]);
     }
 
@@ -59,7 +63,10 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CheckoutRequest $request)
-    {
+    {      
+        dd($request);
+        
+        /*
         // Check race condition when there are less items available to purchase
         if ($this->productsAreNoLongerAvailable()) {
             return back()->withErrors('Sorry! One of the items in your cart is no longer available.');
@@ -97,6 +104,9 @@ class CheckoutController extends Controller
             $this->addToOrdersTables($request, $e->getMessage());
             return back()->withErrors('Error! ' . $e->getMessage());
         }
+        */
+        
+
     }
 
     /**
@@ -163,20 +173,10 @@ class CheckoutController extends Controller
         // Insert into orders table
         $order = Order::create([
             'user_id' => auth()->user() ? auth()->user()->id : null,
-            'billing_email' => $request->email,
-            'billing_name' => $request->name,
-            'billing_address' => $request->address,
-            'billing_city' => $request->city,
-            'billing_province' => $request->province,
-            'billing_postalcode' => $request->postalcode,
-            'billing_phone' => $request->phone,
-            'billing_name_on_card' => $request->name_on_card,
-            'billing_discount' => getNumbers()->get('discount'),
-            'billing_discount_code' => getNumbers()->get('code'),
-            'billing_subtotal' => getNumbers()->get('newSubtotal'),
-            'billing_tax' => getNumbers()->get('newTax'),
-            'billing_total' => getNumbers()->get('newTotal'),
-            'error' => $error,
+            'address' => $request->address,
+            'city' => $request->city,
+            'coins' => $request->coins
+           // 'billing_total' => getNumbers()->get('newTotal'),
         ]);
 
         // Insert into order_product table

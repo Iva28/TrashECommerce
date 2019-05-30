@@ -71,6 +71,7 @@
                     </div>
 
                     <div class="spacer"></div>
+                    <input type="hidden" id="coins" name="coins" value="{{ presentPrice(Cart::subtotal()) }}">
                     <button type="submit" id="complete-order" class="button-primary full-width">Complete Order</button>
                 </form>
             </div>
@@ -123,13 +124,12 @@
                 document.getElementById('complete-order').disabled = true;
 
                 var options = {
-                  name: document.getElementById('name_on_card').value,
                   address: document.getElementById('address').value,
                   city: document.getElementById('city').value,
                 }
             });
 
-          //  form.submit();
+            form.submit();
             }
         })();
     </script>
